@@ -4,3 +4,5 @@
 
 - [x] Créer le dépôt
 - [ ] Modifier le fichier principale de doc du repo`README.md`
+- [ ] Je tente un truc
+- [ ] 
