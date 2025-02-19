@@ -3,4 +3,5 @@
 ## Ma todo liste
 
 - [x] Créer le dépôt
-- [ ] Modifier le fichier principale de doc du repo`README.md`
+- [x] Modifier le fichier principale de doc du repo`README.md`
+- [ ] Comprendre ce qu'on fait 
