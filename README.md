@@ -3,6 +3,6 @@
 ## Ma todo liste
 
 - [x] Créer le dépôt
-- [ ] Modifier le fichier principale de doc du repo`README.md`
-- [ ] Je tente un truc
-- [ ] 
+- [x] Modifier le fichier principale de doc du repo`README.md`
+- [x] Je tente un truc
+- [ ] On tente les 2 branches shallah ça marche
