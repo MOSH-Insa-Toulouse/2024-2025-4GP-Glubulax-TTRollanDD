@@ -2221,7 +2221,7 @@
 				)
 			)
 			(property "Footprint" "Librairie_d_empreinte:MCP41050"
-				(at 0 0 0)
+				(at 1.016 -21.844 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2239,7 +2239,7 @@
 				)
 			)
 			(property "Description" "Single Digital Potentiometer, SPI interface, 256 taps, 50 kohm"
-				(at 0 0 0)
+				(at -0.254 -25.908 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -6424,7 +6424,7 @@
 			)
 		)
 		(property "Footprint" "Librairie_d_empreinte:MCP41050"
-			(at 77.47 148.59 0)
+			(at 78.486 170.434 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6442,7 +6442,7 @@
 			)
 		)
 		(property "Description" "Single Digital Potentiometer, SPI interface, 256 taps, 50 kohm"
-			(at 77.47 148.59 0)
+			(at 77.216 174.498 0)
 			(effects
 				(font
 					(size 1.27 1.27)
