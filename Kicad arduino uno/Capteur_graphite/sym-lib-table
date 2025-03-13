@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Librairie_de_symbole")(type "KiCad")(uri "U:/tp/Capteur/Kicad arduino uno/Librairie_de_symbole.kicad_sym")(options "")(descr ""))
+)

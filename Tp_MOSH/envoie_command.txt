@@ -1,0 +1,35 @@
+/* Blink
+  *Turns on an LED on for one second, then off for one second, repeatedly.
+  *The circuit: LED connected from digital pin 13 to ground.
+  *Created 1 June 2005, By David Cuartielles
+  *http://arduino.cc/en/Tutorial/Blink
+*/
+ 
+int ledPin =  2;    // LED connected to digital pin 13
+int incomingByte = 0;   //serial char
+ 
+// The setup() method runs once, when the sketch starts
+void setup()   {
+  // opens serial port, sets data rate to 9600 bps
+  Serial.begin(9600);
+  // initialize the digital pin as an output:
+  pinMode(ledPin, OUTPUT);   // set ledpin  en output
+  digitalWrite(ledPin, LOW); // set ledpin en low
+}
+ 
+// the loop() method runs over and over again, as long as the Arduino has power
+void loop()                    
+{
+  if (Serial.available() > 0) { //regarde si dans la mémoire de recep il a reçu qq chose
+	// read the incoming byte:
+	incomingByte = Serial.read();
+  
+        if (incomingByte == 'y') {
+	  digitalWrite(ledPin, HIGH);    // set the LED ON
+        }
+        else if (incomingByte == 'n') {
+          digitalWrite(ledPin, LOW);    // set the LED off
+        }
+ }
+ delay(25);                  // wait for a second
+}

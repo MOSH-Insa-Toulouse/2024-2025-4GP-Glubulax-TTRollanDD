@@ -1,0 +1,305 @@
+(footprint "BLUETOOTH"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 7.5 0)
+		(layer "F.SilkS")
+		(uuid "84e5e94c-301a-4a9d-82f6-98a651003949")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "BLUETOOTH"
+		(at 0 -2.5 0)
+		(layer "F.Fab")
+		(uuid "17389158-3d84-4fa9-9f79-9f72db6409bf")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6ea09be9-2b43-4897-b8c2-79d8410844b4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "01cfe841-02a7-4e91-b66a-41bddca56df3")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5d1d530d-f8d8-45af-9a6d-d6b25eef1052")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -7.85 -1.5)
+		(end 7.85 -1.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "7f39dd3a-47af-41f4-9568-51843aefa419")
+	)
+	(fp_line
+		(start -7.85 1.5)
+		(end -7.85 -1.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "808c9f85-cd63-4a8a-b451-44e97e14e5e2")
+	)
+	(fp_line
+		(start -5.08 -1.5)
+		(end -5.08 1.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "ccd2aff4-9d1f-4f46-a8df-502f7b00937e")
+	)
+	(fp_line
+		(start 7.85 -1.5)
+		(end 7.85 1.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "649e3883-6f9b-43ce-8cbb-727ac8f0d9b5")
+	)
+	(fp_line
+		(start 7.85 1.5)
+		(end -7.85 1.5)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "128628de-608e-4569-9cdd-9fb1e8b617c4")
+	)
+	(fp_rect
+		(start -7.85 -1.5)
+		(end 7.85 1.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "15645893-af6e-44db-b11f-2be8d99a8af2")
+	)
+	(fp_line
+		(start -7.6 -1.25)
+		(end 7.6 -1.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "029c2214-c026-4630-afac-8a423c7f9ce8")
+	)
+	(fp_line
+		(start -7.6 1.25)
+		(end -7.6 -1.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "4a246534-5e24-40c2-b4cb-708ac09a5253")
+	)
+	(fp_line
+		(start 7.6 -1.25)
+		(end 7.6 1.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "8d7468b9-56e3-48fc-9540-c6471ec7303d")
+	)
+	(fp_line
+		(start 7.6 1.25)
+		(end -7.6 1.25)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "15bbd8ec-3cb5-4df2-a16d-d19f157a6b7f")
+	)
+	(fp_text user "EN"
+		(at 7 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "0021c93b-6e09-40f2-a02a-0fccf4b592f5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "Bluetooth"
+		(at -3.5 9.5 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "0cf70e49-b497-448c-9e56-709296aeb968")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "RXD"
+		(at -3 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "1ab1e055-233b-42bc-8c74-65e16dff9445")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "GND"
+		(at 2 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "2f114180-093b-426e-a5f1-75f0cd987bab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "VCC"
+		(at 4.5 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "ae37b621-d7f1-4e62-999d-a63ef443cd3c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "State"
+		(at -6 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "cc453934-b580-40f6-8139-8b6b72f6e5ab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "TXD"
+		(at -0.5 5.5 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "d27e5d61-3e90-4fdf-9744-02a3ef522d92")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at -6.35 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "77ab27bb-d5c9-4bed-b6ce-6a2ed27bdcf9")
+	)
+	(pad "2" thru_hole circle
+		(at -3.81 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "20240548-b866-47d7-b12d-605c79ebe336")
+	)
+	(pad "3" thru_hole circle
+		(at -1.27 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "97b76786-629f-48ea-a6de-378c17e73a60")
+	)
+	(pad "4" thru_hole circle
+		(at 1.27 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "f802f6d8-906e-4390-a3aa-d4c13072ad56")
+	)
+	(pad "5" thru_hole circle
+		(at 3.81 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "4a0fa35e-6938-4578-ace4-dc5c8a27fe8a")
+	)
+	(pad "6" thru_hole circle
+		(at 6.35 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "40781997-c29c-4058-9863-6f6eed5e375e")
+	)
+)
