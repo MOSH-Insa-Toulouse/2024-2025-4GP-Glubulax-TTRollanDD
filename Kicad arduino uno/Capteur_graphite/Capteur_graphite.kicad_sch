@@ -2994,7 +2994,7 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 36.83) (xy 62.23 36.83)
+			(xy 62.23 36.83) (xy 82.55 36.83)
 		)
 		(stroke
 			(width 0)
@@ -3021,16 +3021,6 @@
 			(type default)
 		)
 		(uuid "092249e4-5d78-45c5-aa3b-553f0484275d")
-	)
-	(wire
-		(pts
-			(xy 62.23 44.45) (xy 78.74 44.45)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "09480ba4-37da-45e3-b9fe-6beebf876349")
 	)
 	(wire
 		(pts
@@ -3354,6 +3344,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 44.45) (xy 62.23 44.45)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "4fc67d7e-8799-45ae-93a8-c207609693a6")
+	)
+	(wire
+		(pts
 			(xy 77.47 49.53) (xy 62.23 49.53)
 		)
 		(stroke
@@ -3411,6 +3411,16 @@
 			(type solid)
 		)
 		(uuid "63f2b71b-521b-4210-bf06-ed65e330fccc")
+	)
+	(wire
+		(pts
+			(xy 85.09 45.72) (xy 83.82 45.72)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "6440c2de-b376-483c-bac9-b8b8bd034313")
 	)
 	(wire
 		(pts
@@ -4152,7 +4162,7 @@
 		)
 		(uuid e5cf6d30-72cd-441f-b4bf-3e723bb3df58)
 	)
-	(text "Attention, dans notre code pour l'ampli transimpédance, on a mis le SCK du MCP40 sur la pin 10 et le CS sur la pin 9 !\n"
+	(text "Attention, dans notre code pour l'ampli transimpédance, on a mis le CS sur la pin 9 !\n"
 		(exclude_from_sim no)
 		(at 77.216 167.386 0)
 		(effects
@@ -4645,9 +4655,9 @@
 			)
 		)
 	)
-	(global_label "P10"
+	(global_label "P13"
 		(shape bidirectional)
-		(at 78.74 44.45 0)
+		(at 82.55 36.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4657,7 +4667,7 @@
 		)
 		(uuid "31ddc029-2ad4-45ee-bac9-c90a936c250e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 86.5253 44.45 0)
+			(at 90.3353 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4689,7 +4699,7 @@
 			)
 		)
 	)
-	(global_label "P10"
+	(global_label "P13"
 		(shape bidirectional)
 		(at 58.42 143.51 180)
 		(fields_autoplaced yes)
