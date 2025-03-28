@@ -1625,7 +1625,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "0.1µf"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(uuid "e6be64d2-f7d0-40b9-b197-394ffb64b306")
@@ -2186,7 +2186,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, , diameter*width=7*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm  diameter 7mm width 2.5mm Capacitor")
 		(property "Reference" "C5"
-			(at 0 -3.5 90)
+			(at 2.5 -2.5 90)
 			(layer "F.SilkS")
 			(uuid "c34450e1-5599-4c11-98d3-5012eec3191c")
 			(effects
@@ -2196,7 +2196,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100n"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(uuid "c446283b-2e70-4c67-a1f1-64f0fd2865b5")
@@ -2420,7 +2420,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "100k"
 			(at 3.81 1.92 90)
 			(layer "F.Fab")
 			(uuid "189ab9b3-bede-43c4-ba94-25e4a5da363a")
@@ -2823,7 +2823,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100nf"
 			(at 2.5 2.5 0)
 			(layer "F.Fab")
 			(uuid "64d8d29c-8ffe-465c-b5b8-bfb1ab4e1b86")
@@ -3385,6 +3385,7 @@
 		(property "Reference" "C1"
 			(at 2.5 -2.5 90)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "fc3938f5-be24-4302-9258-048384242796")
 			(effects
 				(font
@@ -3393,7 +3394,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "1pf"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(uuid "86358f6b-2fdc-45e6-9101-360d2d910cb4")
@@ -3628,7 +3629,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "1k"
 			(at 3.81 1.92 0)
 			(layer "F.Fab")
 			(uuid "65fd6c89-153d-4359-b1cf-ca944fbd1b82")
@@ -4005,7 +4006,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "47k"
 			(at 3.81 1.92 90)
 			(layer "F.Fab")
 			(uuid "30fa3135-284f-465d-84e5-47369e5a04e3")
@@ -4280,7 +4281,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "100k"
 			(at 3.81 1.92 90)
 			(layer "F.Fab")
 			(uuid "ee79f828-0070-4310-89a3-a4373c372bfc")
@@ -5004,7 +5005,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "10k"
 			(at 3.81 1.92 0)
 			(layer "F.Fab")
 			(uuid "ccb09fd7-0f34-493a-b7ae-647d588bbaa9")
@@ -5910,7 +5911,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100nf"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(uuid "d810fa4e-4aaa-4034-97bd-dc7a6ba1348a")

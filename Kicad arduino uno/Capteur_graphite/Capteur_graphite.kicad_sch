@@ -3414,16 +3414,6 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 45.72) (xy 83.82 45.72)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "6440c2de-b376-483c-bac9-b8b8bd034313")
-	)
-	(wire
-		(pts
 			(xy 121.92 109.22) (xy 130.81 109.22)
 		)
 		(stroke
@@ -5683,7 +5673,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "100k"
 			(at 92.71 128.2699 0)
 			(effects
 				(font
@@ -5880,7 +5870,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "100k"
 			(at 133.35 114.2999 0)
 			(effects
 				(font
@@ -6013,7 +6003,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "10k"
 			(at 71.12 115.57 90)
 			(effects
 				(font
@@ -6224,7 +6214,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "1pf"
 			(at 130.81 102.8699 0)
 			(effects
 				(font
@@ -6532,7 +6522,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100nf"
 			(at 151.13 129.5399 0)
 			(effects
 				(font
@@ -6670,7 +6660,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100nf"
 			(at 85.09 128.2699 0)
 			(effects
 				(font
@@ -7022,7 +7012,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "0.1µf"
 			(at 125.73 114.2999 0)
 			(effects
 				(font
@@ -7290,19 +7280,21 @@
 		(fields_autoplaced yes)
 		(uuid "c2f4f6a9-05cb-4fb8-be82-17737bef60b1")
 		(property "Reference" "R5"
-			(at 123.19 57.15 90)
+			(at 132.08 55.8799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
-		(property "Value" "R"
-			(at 125.73 57.15 90)
+		(property "Value" "47k"
+			(at 132.08 58.4199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
@@ -7427,7 +7419,7 @@
 				)
 			)
 		)
-		(property "Value" "C"
+		(property "Value" "100n"
 			(at 162.56 48.768 90)
 			(effects
 				(font
@@ -7495,7 +7487,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "1k"
 			(at 140.97 113.03 90)
 			(effects
 				(font
