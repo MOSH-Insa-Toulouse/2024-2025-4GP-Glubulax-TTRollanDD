@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////initialisation constante/////////////////////////////////////////////
 
-//---------------------------------MCP41100 AKA R2-----------------------------------------------------//
-
-const byte csPin = 9;            // MCP42100 chip select pin
+//---------------------------------MCP41050 AKA R2-----------------------------------------------------//
+#include <SPI.h>
+const byte csPin = 9;            // MCP41050 chip select pin MCP41XXX --> XXX kohms donc ici 050kohms
 const int maxPositions = 256;    // wiper can move from 0 to 255 = 256 positions
 const long rAB = 50000;          // 50k pot resistance between terminals A and B,
                                  // mais pour ajuster au multimètre, je mets 92500
@@ -25,7 +25,6 @@ const float bendResistance = 100000.0;  // resistance at 90 deg
 
 //---------------------------------OLED et encoder-----------------------------------------------------//
 
-#include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
@@ -45,8 +44,9 @@ boolean backlight = true;
 int contrast = 60;
 int volume = 50;
 
-String Config_R2[5] = { "MINIMUM", "12.5K", "25K", "37.5K", "50k" };
-int Config_R2_int[5] = { 1000, 12500, 25000, 37500, 50000 };
+String Config_R2[5] = { "125", "12.5K", "25K", "37.5K", "50k" };
+int Config_R2_int[5] = { 125, 12500, 25000, 37500, 50000 };
+int Config_R2_8int[5] = { 0, 64, 128, 192, 255 };
 float MEASURED_R[2] = { 1, 2 };  //Rcpateur en 1 et Rflex en 2
 int selectedResistance = 0;
 int selectedMeasure = 0;
@@ -62,14 +62,13 @@ int16_t last, value;
 Adafruit_SSD1306 display(OLED_RESET);
 
 //---------------------------------bluetooth-----------------------------------------------------//
+#include <SoftwareSerial.h>                 // Bibliothèque pour gérer la communication avec l'appareil bluetooth
+#define rxPin 6 //Broche 11 en tant que RX, � raccorder sur TX du HC-05
+#define txPin 7 //Broche 10 en tant que RX, � raccorder sur TX du HC-05
+#define baudrate 9600 // baudRate à 9600, identique à celui du moniteur série pour synchroniser la communication
+SoftwareSerial mySerial(rxPin ,txPin); // Définition du software serial
 
-const int speed_serial = 9600;  // communication Bluetooth, il envoie simplement la donnée, qui est une valeur analogique codée sur 10 bit (0 1024)
-// A1/4 que je ramène sur 0 255 qui peut se coder en 8 bit
-
-
-
-
-////////////////////////////////////////////////MCP41100 AKA R2/////////////////////////////////////////////
+////////////////////////////////////////////////MCP41050 AKA R2/////////////////////////////////////////////
 
 void setPotWiper(int addr, int pos) {
   pos = constrain(pos, 0, 255);  // limit wiper setting to range of 0 to 255
@@ -80,13 +79,18 @@ void setPotWiper(int addr, int pos) {
 
   // print pot resistance between wiper and B terminal
   long resistanceWB = ((rAB * pos) / maxPositions) + rWiper;
+  //Serial.print("Wiper position: ");
+  //Serial.print(pos);
+  //Serial.print(" Resistance wiper to B terminal: ");
+  //Serial.print(resistanceWB);
+  //Serial.println(" ohms");
 }
 
 ////////////////////////////////////////////////SETUP/////////////////////////////////////////////
 
 void setup() {
   // put your setup code here, to run once:
-  ////////////////////////////////////////////////MCP41100 AKA R2/////////////////////////////////////////////
+  ////////////////////////////////////////////////MCP41050 AKA R2/////////////////////////////////////////////
   digitalWrite(csPin, HIGH);  // chip select default to de-selected
   pinMode(csPin, OUTPUT);     // configure chip select as output
   SPI.begin();
@@ -117,13 +121,12 @@ void setup() {
   ////////////////////////////////////////////////bluetooth/////////////////////////////////////////////
 
   // initialisation des pins
-  pinMode(6, INPUT);   //broche 6 en tant que rx (recieve pin), connectée à tx du HC-05
-  pinMode(7, OUTPUT);  //broche 7 en tant que tx (transmission pin), connectée à rx du HC-05
+  pinMode(rxPin, INPUT);   //broche 6 en tant que rx (recieve pin), connectée à tx du HC-05
+  pinMode(txPin, OUTPUT);  //broche 7 en tant que tx (transmission pin), connectée à rx du HC-05
+  mySerial.begin(baudrate); // On définit le baudrate de la communication avec l'appareil bluetooth à 9600
 
 
-
-  Serial.begin(speed_serial);  // initialisation de la connexion série (avec le module bluetooth)
-  setupBlueToothConnection();  // démarrage liason série bluetooth cf fonction en bas
+  Serial.begin(baudrate);  // initialisation de la connexion série (avec le module bluetooth)
 }
 
 ////////////////////////////////////////////////LOOP/////////////////////////////////////////////
@@ -131,11 +134,17 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  ////////////////////////////////////////////////Capteur/////////////////////////////////////////////
+  //////////////////////////////////////////////MCP41050 AKA R2/////////////////////////////////////////////
+  setPotWiper(pot0, Config_R2_8int[selectedResistance]);                    // selection valeur résistance SPI
+
+  ////////////////////////////////////////////////Capteur+bluetooth avec le serial/////////////////////////////////////////////
   float Vcapteur = analogRead(A0);
   //float Rcapteur = (1 + ( Config_R2_int[selectedResistance] / 100000 ) ) * 10000 * ( 1024 / Vcapteur ) - 11000;
-  MEASURED_R[1] = (1 + (Config_R2_int[selectedResistance] / 100000)) * 10000 * (1024 / Vcapteur) - 11000;
-
+  MEASURED_R[1] = (1 + (100000/ Config_R2_int[selectedResistance])) * 10000 * (1024 / Vcapteur) - 10000;
+  //mySerial.write(Vcapteur/4); // On envoie à l'appareil bluetooth, qui communiquera avec l'appli, la valeur à la sortie de A0
+  mySerial.write(MEASURED_R[1]);
+  Serial.println(Vcapteur);
+  Serial.println(1024 / Vcapteur);
   ////////////////////////////////////////////////FLEX/////////////////////////////////////////////
   // Read the ADC, and calculate voltage and resistance from it
   int ADCflex = analogRead(flexPin);
@@ -235,22 +244,22 @@ void loop() {
 ////////////////////////////////////////////////Bluetooth/////////////////////////////////////////////
 void setupBlueToothConnection()  // fonction de configuration du module bluetooth
 {
-  /*
-  Serial.begin(speed_serial); //vitesse de bluetooth
+ 
+  //Serial.begin(speed_serial); //vitesse de bluetooth
                               //initialisation de la connexion série (avec le module bluetooth)
 
-  //  Serial.print("\r\n+STBD=115200\r\n"); // fixe la vitesse du bluetooth
-  Serial.print("\r\n+STBD=9600\r\n"); // fixe la vitesse du bluetooth
-  Serial.print("\r\n+STWMOD=0\r\n"); //bluetooth en mode esclave
-  Serial.print("\r\n+STNA=Arduino"); //nom de l'appareil
-  Serial.print("\r\n+STPIN=0000\r\n");//code pin "0000"
-  Serial.print("\r\n+STOAUT=1\r\n"); // Permit Paired device to connect me
-  Serial.print("\r\n+STAUTO=0\r\n"); // Auto-connection should be forbidden here
-  delay(2000); // This delay is required.
-  Serial.print("\r\n+INQ=1\r\n"); //make the slave bluetooth inquirable 
-  delay(2000); // This delay is required.
-  Serial.flush();
-*/
+  //Serial.print("\r\n+STBD=115200\r\n"); // fixe la vitesse du bluetooth
+  //Serial.print("\r\n+STBD=9600\r\n"); // fixe la vitesse du bluetooth
+  //Serial.print("\r\n+STWMOD=0\r\n"); //bluetooth en mode esclave
+  //Serial.print("\r\n+STNA=Arduino"); //nom de l'appareil
+  //Serial.print("\r\n+STPIN=0000\r\n");//code pin "0000"
+  //Serial.print("\r\n+STOAUT=1\r\n"); // Permit Paired device to connect me
+  //Serial.print("\r\n+STAUTO=0\r\n"); // Auto-connection should be forbidden here
+  //delay(2000); // This delay is required.
+  //Serial.print("\r\n+INQ=1\r\n"); //make the slave bluetooth inquirable 
+  //delay(2000); // This delay is required.
+  //Serial.flush();
+ 
 }
 ////////////////////////////////////////////////Encodeur et OLED/////////////////////////////////////////////
 void drawMenu() {
@@ -289,10 +298,11 @@ void drawMenu() {
     displayStringMenuPage(menuItem1, Config_R2[selectedResistance]);
   } else if (page == 2 && menuitem == 2) {
     if (selectedMeasure == 0) {
-      displayIntMenuPage(menuItem2, MEASURED_R[2], selectedMeasure);  // Rflex
+      displayfloatMenuPage(menuItem2, MEASURED_R[2], selectedMeasure);  // Rflex
     }                                                                 // Rflex
     else {
-      displayIntMenuPage(menuItem2, MEASURED_R[1], selectedMeasure);  // Rcapteur
+      displayfloatMenuPage(menuItem2, MEASURED_R[1], selectedMeasure);  // Rcapteur
+      Serial.println(MEASURED_R[1]);
     }
   }
 }
@@ -323,7 +333,7 @@ void timerIsr() {
   encoder->service();
 }
 
-void displayIntMenuPage(String menuItem, int value, int choix) {
+void displayfloatMenuPage(String menuItem, float value, int choix) {
   display.setTextSize(1);
   display.clearDisplay();
   display.setTextColor(WHITE, BLACK);
@@ -351,7 +361,7 @@ void displayStringMenuPage(String menuItem, String value) {
   display.println(menuItem);
   display.drawFastHLine(0, 10, 128, WHITE);  //BLACK
   display.setCursor(5, 15);
-  display.println("Value");
+  display.println("Value (ohm)");
   display.setTextSize(1);
   display.setCursor(5, 25);
   display.println(value);

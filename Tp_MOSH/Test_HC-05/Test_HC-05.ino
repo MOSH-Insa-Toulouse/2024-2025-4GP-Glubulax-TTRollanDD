@@ -1,8 +1,8 @@
 #include <SoftwareSerial.h>
-#define rxPin 11 //Broche 11 en tant que RX, à raccorder sur TX du HC-05
-#define txPin 10 //Broche 10 en tant que RX, à raccorder sur TX du HC-05
+#define rxPin 11 //Broche 11 en tant que RX, ï¿½ raccorder sur TX du HC-05
+#define txPin 10 //Broche 10 en tant que RX, ï¿½ raccorder sur RX du HC-05
 #define baudrate 9600
-SoftwareSerial mySerial(rxPin ,txPin); //Définition du software serial
+SoftwareSerial mySerial(rxPin ,txPin); //Dï¿½finition du software serial
 
 void setup(){
   pinMode(rxPin,INPUT);

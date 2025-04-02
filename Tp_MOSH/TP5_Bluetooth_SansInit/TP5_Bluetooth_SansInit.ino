@@ -105,7 +105,7 @@ lastButtonState = reading;
 
 //La fonction serialEvent est appelé après chaque boucle loop si un caractère est arrivé sur le port
 void serialEvent(){ // si arduino reçoit quelquechose sur l'entrée RX
-  serialRX = Serial.read(); // stocker la valeur reçue dans la variable SerialA 
+  serialRX = Serial.read(); // stocker la valeur reçue dans la variable SerialA
   RX = 1; //met la valeur RX à 1
 }
 
