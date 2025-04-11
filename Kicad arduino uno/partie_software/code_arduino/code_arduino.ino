@@ -35,6 +35,7 @@ int menuitem = 1;
 int frame = 1;
 int page = 1;
 int lastMenuItem = 1;
+// int delais = 1;
 
 String menuItem1 = "Config_R2";
 String menuItem2 = "Flex_vs_Capteur";
@@ -50,6 +51,8 @@ int Config_R2_8int[5] = { 0, 64, 128, 192, 255 };
 float MEASURED_R[2] = { 1, 2 };  //Rcpateur en 1 et Rflex en 2
 int selectedResistance = 0;
 int selectedMeasure = 0;
+float Vcapteur = 0;
+int envoie  = 0;
 
 boolean up = false;
 boolean down = false;
@@ -62,11 +65,12 @@ int16_t last, value;
 Adafruit_SSD1306 display(OLED_RESET);
 
 //---------------------------------bluetooth-----------------------------------------------------//
-#include <SoftwareSerial.h>                 // Bibliothèque pour gérer la communication avec l'appareil bluetooth
-#define rxPin 6 //Broche 11 en tant que RX, � raccorder sur TX du HC-05
-#define txPin 7 //Broche 10 en tant que RX, � raccorder sur TX du HC-05
-#define baudrate 9600 // baudRate à 9600, identique à celui du moniteur série pour synchroniser la communication
-SoftwareSerial mySerial(rxPin ,txPin); // Définition du software serial
+#include <SoftwareSerial.h>             // Bibliothèque pour gérer la communication avec l'appareil bluetooth
+#define rxPin 6                         //Broche 11 en tant que RX, � raccorder sur TX du HC-05
+#define txPin 7                         //Broche 10 en tant que RX, � raccorder sur TX du HC-05
+#define baudrate 9600                   // baudRate à 9600, identique à celui du moniteur série pour synchroniser la communication
+SoftwareSerial mySerial(rxPin, txPin);  // Définition du software serial
+int ready = 0;
 
 ////////////////////////////////////////////////MCP41050 AKA R2/////////////////////////////////////////////
 
@@ -121,9 +125,9 @@ void setup() {
   ////////////////////////////////////////////////bluetooth/////////////////////////////////////////////
 
   // initialisation des pins
-  pinMode(rxPin, INPUT);   //broche 6 en tant que rx (recieve pin), connectée à tx du HC-05
-  pinMode(txPin, OUTPUT);  //broche 7 en tant que tx (transmission pin), connectée à rx du HC-05
-  mySerial.begin(baudrate); // On définit le baudrate de la communication avec l'appareil bluetooth à 9600
+  pinMode(rxPin, INPUT);     //broche 6 en tant que rx (recieve pin), connectée à tx du HC-05
+  pinMode(txPin, OUTPUT);    //broche 7 en tant que tx (transmission pin), connectée à rx du HC-05
+  mySerial.begin(baudrate);  // On définit le baudrate de la communication avec l'appareil bluetooth à 9600
 
 
   Serial.begin(baudrate);  // initialisation de la connexion série (avec le module bluetooth)
@@ -135,22 +139,24 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   //////////////////////////////////////////////MCP41050 AKA R2/////////////////////////////////////////////
-  setPotWiper(pot0, Config_R2_8int[selectedResistance]);                    // selection valeur résistance SPI
+  setPotWiper(pot0, Config_R2_8int[selectedResistance]);  // selection valeur résistance SPI
 
   ////////////////////////////////////////////////Capteur+bluetooth avec le serial/////////////////////////////////////////////
-  float Vcapteur = analogRead(A0);
+  Vcapteur = analogRead(A0);
   //float Rcapteur = (1 + ( Config_R2_int[selectedResistance] / 100000 ) ) * 10000 * ( 1024 / Vcapteur ) - 11000;
-  MEASURED_R[1] = (1 + (100000/ Config_R2_int[selectedResistance])) * 10000 * (1024 / Vcapteur) - 10000;
+  MEASURED_R[1] = (1 + (100000 / Config_R2_int[selectedResistance])) * 10000 * (1024 / Vcapteur) - 10000;
   //mySerial.write(Vcapteur/4); // On envoie à l'appareil bluetooth, qui communiquera avec l'appli, la valeur à la sortie de A0
-  mySerial.write(MEASURED_R[1]);
+  //delais = delais + 1;
+  envoie = Vcapteur/4;
+  Serial.println(envoie);
   Serial.println(Vcapteur);
-  Serial.println(1024 / Vcapteur);
+
   ////////////////////////////////////////////////FLEX/////////////////////////////////////////////
   // Read the ADC, and calculate voltage and resistance from it
   int ADCflex = analogRead(flexPin);
   float Vflex = ADCflex * VCC / 1023.0;
   //float Rflex = R_DIV * (VCC / Vflex - 1.0);
-  MEASURED_R[2] = R_DIV * (VCC / Vflex - 1.0);
+  MEASURED_R[2] = R_DIV * (Vflex / (VCC - Vflex));
   //Serial.println("Resistance: " + String(Rflex) + " ohms");
 
   // Use the calculated resistance to estimate the sensor's bend angle:
@@ -244,9 +250,9 @@ void loop() {
 ////////////////////////////////////////////////Bluetooth/////////////////////////////////////////////
 void setupBlueToothConnection()  // fonction de configuration du module bluetooth
 {
- 
+
   //Serial.begin(speed_serial); //vitesse de bluetooth
-                              //initialisation de la connexion série (avec le module bluetooth)
+  //initialisation de la connexion série (avec le module bluetooth)
 
   //Serial.print("\r\n+STBD=115200\r\n"); // fixe la vitesse du bluetooth
   //Serial.print("\r\n+STBD=9600\r\n"); // fixe la vitesse du bluetooth
@@ -256,10 +262,9 @@ void setupBlueToothConnection()  // fonction de configuration du module bluetoot
   //Serial.print("\r\n+STOAUT=1\r\n"); // Permit Paired device to connect me
   //Serial.print("\r\n+STAUTO=0\r\n"); // Auto-connection should be forbidden here
   //delay(2000); // This delay is required.
-  //Serial.print("\r\n+INQ=1\r\n"); //make the slave bluetooth inquirable 
+  //Serial.print("\r\n+INQ=1\r\n"); //make the slave bluetooth inquirable
   //delay(2000); // This delay is required.
   //Serial.flush();
- 
 }
 ////////////////////////////////////////////////Encodeur et OLED/////////////////////////////////////////////
 void drawMenu() {
@@ -273,9 +278,11 @@ void drawMenu() {
     display.drawFastHLine(0, 10, 128, WHITE);  //BLACK
 
     if (menuitem == 1 && frame == 1) {
+      //mySerial.write("Config_R2");
       displayMenuItem(menuItem1, 15, true);
       displayMenuItem(menuItem2, 25, false);
     } else if (menuitem == 2 && frame == 1) {
+      //mySerial.write("Measure");
       displayMenuItem(menuItem1, 15, false);
       displayMenuItem(menuItem2, 25, true);
     } else if (menuitem == 3 && frame == 1) {
@@ -288,6 +295,7 @@ void drawMenu() {
       displayMenuItem(menuItem2, 15, false);
       displayMenuItem(menuItem3, 25, true);
     } else if (menuitem == 2 && frame == 2) {
+      //mySerial.write("Measure");
       displayMenuItem(menuItem2, 15, true);
       displayMenuItem(menuItem3, 25, false);
     } else if (menuitem == 3 && frame == 3) {
@@ -296,13 +304,16 @@ void drawMenu() {
     display.display();
   } else if (page == 2 && menuitem == 1) {
     displayStringMenuPage(menuItem1, Config_R2[selectedResistance]);
+    mySerial.write(selectedResistance+1);
+    Serial.println(selectedResistance+1);
   } else if (page == 2 && menuitem == 2) {
     if (selectedMeasure == 0) {
-      displayfloatMenuPage(menuItem2, MEASURED_R[2], selectedMeasure);  // Rflex
-    }                                                                 // Rflex
+      displayfloatMenuPage(menuItem2, MEASURED_R[2], selectedMeasure); // Rflex
+      //mySerial.write(MEASURED_R[2]);  // Rflex
+    }                                                                   
     else {
       displayfloatMenuPage(menuItem2, MEASURED_R[1], selectedMeasure);  // Rcapteur
-      Serial.println(MEASURED_R[1]);
+      mySerial.write(envoie);
     }
   }
 }
