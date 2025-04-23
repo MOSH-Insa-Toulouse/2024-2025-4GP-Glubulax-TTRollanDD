@@ -1,8 +1,8 @@
-# 2024-2025 : Projet de capteur low-tech en graphite – Sombret Yanis, Rolland Tristan
+# 2024-2025 : Projet de capteur graphène low-tech – Sombret Yanis, Rolland Tristan
 
 ## SOMMAIRE
 
-- [2024-2025 : Projet de capteur low-tech en graphite – Sombret Yanis, Rolland Tristan](#2024-2025--projet-de-capteur-low-tech-en-graphite--sombret-yanis-rolland-tristan)
+- [2024-2025 : Projet de capteur graphène low-tech – Sombret Yanis, Rolland Tristan](#2024-2025--projet-de-capteur-graphène-low-tech--sombret-yanis-rolland-tristan)
   - [SOMMAIRE](#sommaire)
   - [Présentation du projet](#présentation-du-projet)
   - [Livrables](#livrables)
@@ -25,11 +25,15 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En fonction de la contrainte appliquée à notre jauge, l’écartement des particules de graphène se voit modifié, altérant les propriétés conductrices de notre couche de graphène. Grossièrement, effectuer une flexion sur notre capteur revient à écarter les agglomérats de graphène diminuant la conductivité, effectuer une compression revient à produire l’effet inverse en rapprochant les agglomérats de graphène. 
 
-![tension-compression](/Photos/tension-compression.PNG)
+<p align="center">
+  <img src="/Photos/tension-compression.PNG" alt="tension-compression">
+</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Par mesure de tension en sortie d’amplificateur, il est possible de remonter à la valeur de la résistance du capteur et la mettre en regard de la déformation. Enfin, la quantité de graphène dépend du type de crayon employé influant aussi la conductivité de la couche obtenue. 
 
-![crayons](/Photos/crayons.PNG)
+<p align="center">
+  <img src="/Photos/crayons.PNG" alt="crayons">
+</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ainsi, en plus de l’intérêt pédagogique de ce projet de conception qui nous a permis d’intervenir sur toute la chaîne d’acquisition, nous avons eu l’occasion, et pour mission, de faire une étude qualitative du banc de test et déterminer ainsi si le capteur pouvait faire l’objet d’une commercialisation, et si oui, avec quel type de crayon à papier. 
 
@@ -130,7 +134,9 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Par la suite, nous avons créé les empreintes de chacun des composants afin de modéliser notre Shield PCB. C’est à cette étape que nous prenions en compte les pistes de cuivres et l’agencement des composants pour que tout rentre sur l’espace imposé et que tout soit connecté selon la schématique que nous avions produit précédemment. Aussi, il nous a fallu prêter grande attention aux masses flottantes et aux piscines. Les masses flottantes pouvaient générer des disfonctionnements sur notre banc. Quant aux piscines, de larges zones sans cuivre, elles posaient un problème de gaspillage, les pistes après modélisation se faisant par enlèvement de matière.  
 
-![PCB](/Photos/PCB.PNG)
+<p align="center">
+  <img src="/Photos/PCB.PNG" alt="PCB">
+</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Il nous a également fallu prendre en compte les dimensions de chaque composant pour éviter qu’ils ne se chevauchent au moment de la réalisation :
 
@@ -151,9 +157,11 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toutes ces étapes de fabrication ont été réalisé par Cathy Crouzet. Nous avons ensuite pu réaliser le perçage de notre plaquette et y souder nos divers composants selon le schéma du PCB obtenu sur KiCad.
 
-![Soudure](/Photos/Soudure.PNG)
+<p align="center">
+  <img src="/Photos/Soudure.PNG" alt="Soudure">
+</p>
 
-Voici le résultat final de notre PCB :
+Voici le résultat après soudure de notre PCB :
 
 ![Résultat_final1](/Photos/Résultat_final1.jpg)
 
@@ -175,7 +183,9 @@ Voici le résultat final de notre PCB :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enfin, avant de pouvoir commencer à mesurer, nous avons procédé à la création d’une application Android sur MIT APP Inventor afin de mieux visualiser les données. Le fonctionnement de notre code block est directement lié à notre code Arduino du HC-05. En fonction de la donnée reçue, nous complétons le champ « valeur résistance SPI » ou « valeur résistance mesurée ».
 
-![App-inventor](/Photos/App-inventor.PNG)
+<p align="center">
+  <img src="/Photos/App-inventor.PNG" alt="App-inventor">
+</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyé pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
 
@@ -185,7 +195,9 @@ Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glub
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afin de réaliser nos tests et mesures avec la plus grande précision et confort possible, nous voulions nous assurer des contraintes que nous appliquions sur nos jauges. Nos jauges car nous avons confectionné plusieurs jauges de contrainte avec des types de crayon différent dans l’optique de pouvoir les comparer les unes aux autres et déterminer laquelle serait la plus performante ou la plus conductrice. Celles-ci sont toutes de dimensions fixes avec une épaisseur de papier fixe.
 
-![dimension-capteur](/Photos/dimension-capteur.PNG)
+<p align="center">
+  <img src="/Photos/dimension-capteur.PNG" alt="dimension-capteur">
+</p>
 
 Or, la déformation ε dans notre cas se calcule comme :  
 
@@ -193,7 +205,9 @@ Or, la déformation ε dans notre cas se calcule comme :
 
 Où e est l’épaisseur de nos jauges, et R0 le rayon de courbure. Ainsi, pour pouvoir appliquer la même contrainte et donc observer la même déformation sur toutes nos jauges de contrainte, nous avons modélisé et fabriqué le petit outil de test ci-dessus.
 
-![bancdetest](/Photos/bancdetest.JPG)
+<p align="center">
+  <img src="/Photos/bancdetest.JPG" alt="bancdetest">
+</p>
 
 Il dispose de 6 encoches dans lesquelles nous pouvons glisser nos jauges en papiers. Les 6 encoches sont de dimensions fixes et donc, applique une contrainte similaire sur chacune des jauges à tester. 
 
