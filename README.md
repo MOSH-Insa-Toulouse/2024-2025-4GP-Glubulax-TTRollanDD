@@ -19,7 +19,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dans le cadre de l’UF «Du capteur au banc de test», nous avons eu pour projet de designer et produire un système de mesure de déformation d’une jauge de contrainte low-tech, un morceau de papier sur lequel est dessiné une piste au crayon à papier. Cette technologie bas coût de jauge de contrainte provient des travaux de Cheng-Wei Lin, Zhibo Zhao, Jaemyung Kim et Jiaxing Huang, chercheurs du département des sciences de l’ingénierie et des matériaux de l’université Northwestern à Evanston, USA. En effet, les traces de crayons laissées sur le papier jouent le rôle de fines couches de graphène conductrices. 
 
-![piste-graphène](/Photos/piste-graphène.PNG)
+<p align="center">
+  <img src="/Photos/piste-graphène.PNG" alt="piste-graphène">
+</p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En fonction de la contrainte appliquée à notre jauge, l’écartement des particules de graphène se voit modifié, altérant les propriétés conductrices de notre couche de graphène. Grossièrement, effectuer une flexion sur notre capteur revient à écarter les agglomérats de graphène diminuant la conductivité, effectuer une compression revient à produire l’effet inverse en rapprochant les agglomérats de graphène. 
 
@@ -177,7 +179,7 @@ Voici le résultat final de notre PCB :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyé pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
 
-Idem, l’[application](/Kicad arduino uno/Appli_Apk) est disponible sur le GitHub.
+Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/e780e9e67ddb4ad359baa03b2484e88e1e51dd00/Kicad%20arduino%20uno/Appli_Apk) est disponible sur le GitHub.
 
 ## Test et résultats
 
