@@ -37,7 +37,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ainsi, en plus de l’intérêt pédagogique de ce projet de conception qui nous a permis d’intervenir sur toute la chaîne d’acquisition, nous avons eu l’occasion, et pour mission, de faire une étude qualitative du banc de test et déterminer ainsi si le capteur pouvait faire l’objet d’une commercialisation, et si oui, avec quel type de crayon à papier. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dans le cadre de la réalisation et de la caractérisation de ce dispositif de mesure low-tech, il nous a fallu suivre différentes étapes allant de la simulations électroniques à la rédaction de sa datasheet en passant par l’impression de notre Shield PCB sur lequel nous avons fait nos soudures.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dans le cadre de la réalisation et de la caractérisation de ce dispositif de mesure low-tech, il nous a fallu suivre différentes étapes allant de la simulation électronique à la rédaction de sa datasheet en passant par l’impression de notre Shield PCB sur lequel nous avons fait nos soudures.
 
 Dans ce README, nous faisons état de tout ce qui a été fait dans le cadre de ce projet.
 
@@ -73,11 +73,11 @@ Afin de mener notre projet à son aboutissement, nous avons eu besoin de :
 
 ## Simulation électronique du capteur sous LTSpice
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notre capteur passif en graphène possède une très grande résistance, de l’ordre du gigaohm. Ainsi, une fois alimenté par la carte Arduino en 5V à ces bornes, le courant est très faible. Or, il est notre signal d’intérêt pour remonter à la valeur de la résistance de notre capteur. Ainsi, il est nécessaire de mettre en place un amplificateur transimpédance afin d’amplifier le signal, le convertir en tension plus maniable, et enfin de diminuer les bruits en entrés qui pourrait parasiter notre signal trop faible. Pour se faire, nous avons d’abord modélisé l’amplificateur sous LTspice afin d’optimiser au mieux sa conception pour notre application.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notre capteur passif en graphène possède une très grande résistance, de l’ordre du mégaohm. Ainsi, une fois alimenté par la carte Arduino en 5V à ces bornes, le courant est très faible. Or, il est notre signal d’intérêt pour remonter à la valeur de la résistance de notre capteur. Ainsi, il est nécessaire de mettre en place un amplificateur transimpédance afin d’amplifier le signal, le convertir en tension, et enfin de diminuer les bruits en entrés qui pourrait parasiter notre signal trop faible. Pour se faire, nous avons d’abord modélisé l’amplificateur sous LTspice afin d’optimiser au mieux sa conception pour notre application.
 
 ***Description du montage amplificateur transimpédance***
 
-Nous avons testé ce [montage](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/d56ae1422a981fd2a5976976d5f25a12f142231e/LTspice/Ampli_transimp%C3%A9dance/Ampli_transimp%C3%A9dance.asc) sur le logiciel LTspice :
+Nous avons testé ce [montage](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/LTspice/Ampli_transimp%C3%A9dance/Ampli_transimp%C3%A9dance.asc) sur le logiciel LTspice :
 
 ![Montage-ampli](/Photos/Montage-ampli.PNG)
 
@@ -95,7 +95,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Place maintenant à la réduction du bruit. Pour obtenir un signal le plus pur et ce, de manière efficace, nous avons dimensionné les 3 filtres de ce montage amplificateur transimpédance via nos simulations. Chaque filtre ayant un rôle bien précis : 
 
-- à l'entrée, un filtre 1 passe-bas passif (R5,C1) avec une fréquence de coupure de 16 Hz permettant de filtrer les bruits sur le signal en entrée fournis par nos capteur. Donc tout type de perturbations en courant qu’il pourrait avoir lieu avant amplification, qui serait amplifié dans le cas contraire avec notre signal, le noyant.
+- à l'entrée, un filtre 1 passe-bas passif (R5,C1) avec une fréquence de coupure de 16 Hz permettant de filtrer les bruits sur le signal en entrée fournis par nos capteurs. Donc tout type de perturbations en courant qu’il pourrait avoir lieu avant amplification, qui serait amplifié dans le cas contraire avec notre signal, le noyant.
 
 - un deuxième filtre 2 passe-bas avec une fréquence de coupure de 1.6 Hz (R3,C4) couplé à l'AOP permettant de filtrer la composante du bruit à 50 Hz provenant du réseau électrique. Ici, la simulation nous a permis de fixer la valeur de C4. Une valeur trop élevée permet de diminuer grandement le bruit à 50 Hz mais diminue fortement le temps de réponse de notre circuit amplificateur. Ainsi, après simulation, fixer C4 à 1μF représente le meilleur compromis. 
 
@@ -109,7 +109,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 ![C4](/Photos/C4.PNG)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On observe bien ci-dessus l’amplification du signal. L'Arduino pourra donc l'interpréter. De plus, on vérifie que plus C4 est élevé, meilleur le signal est mais plus le temps de réponse est long.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On observe bien ci-dessus l’amplification du signal. L'Arduino pourra donc l'interpréter. De plus, on vérifie que plus C4 est élevée, meilleur le signal est mais plus le temps de réponse est long.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ci-dessous les résultats de nos simulations à courant alternatifs afin de vérifier et optimiser le rôle de chacun des filtres. Le bruit est atténué d’environ 72dB à 50Hz. Le montage est performant.
 
@@ -119,16 +119,15 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 ***Modélisation sous KiCad***
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une fois les étapes de vérification faites, nous pouvions commencer le design et la conception de notre banc de test. Pour se faire nous avons utilisé le logiciel de modélisation KiCad 9.0, qui permet de modéliser tous les composants dont nous avions besoin sur une Shield de taille identique à la plaquette Arduino qui servirait de carte d’acquisition. De là, nous pouvions modéliser nos différents composant et faire la connectique, étape très importante étant donné la petitesse de notre PCB en regard des composants qu’elle accueillerait. Afin de réaliser nos mesures avec le plus de pertinence et de confort, nous avons eu recourt à:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une fois les étapes de vérification faites, nous pouvions commencer le design et la conception de notre banc de test. Pour se faire nous avons utilisé le logiciel de modélisation KiCad 9.0, qui permet de modéliser tous les composants dont nous avions besoin sur une Shield de taille identique à la plaquette Arduino qui servira de carte d’acquisition. De là, nous pouvions modéliser nos différents composant et faire la connectique, étape très importante étant donné la petitesse de notre PCB en regard des composants qu’elle accueillerait. Afin de réaliser nos mesures avec le plus de pertinence et de confort, nous avons eu recourt à:
 
 - un flexsensor commercial d’une résistance au repos de 33kΩ, afin de pouvoir comparer nos mesures avec celle des capteurs graphites.
 
 - un module bluetooth HC-05 permettant d’envoyer les données mesurées sur notre téléphone via une application Android codé par nos soins sur MIT APP Inventor.
 
-- un écran OLED permettant d’afficher un menu sur lequel nous pouvons régler la valeur de la résistance du potentiomètre digital ainsi qu’observer la valeur des résistances du flexsensor et des capteurs graphène. 
+- un écran OLED permettant d’afficher un menu sur lequel nous pouvons régler la valeur de la résistance du potentiomètre digital ainsi qu’observer la valeur des résistances du flexsensor et des capteurs graphènes. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour la modélisation, nous avons commencé par faire la schématique. Cette dernière permet de visualiser et de faire tous les branchements nécessaires au bon fonctionnement de notre banc de test. Fi de fils de connections, c’est le fonctionnement qui importe. Nous avons dû créé nous même certains symboles non présents dans les bibliothèques déjà existante. Notre seule contrainte ici était de connecter les bons éléments aux pins d’intérêts de l’arduino. En effet, certain composant nécessitait d’être connecté à des pins PWM de l’arduino pour cadencer l’information via une clock. C’est le cas pour le module HC-05 en écriture au moins et l’encodeur digital. Voici donc notre proposition :
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour la modélisation, nous avons commencé par faire la schématique. Cette dernière permet de visualiser et de faire tous les branchements nécessaires au bon fonctionnement de notre banc de test. Fi de fils de connections, c’est le fonctionnement qui importe. Nous avons dû créer nous même certains symboles non présents dans les bibliothèques déjà existantes. Notre seule contrainte ici était de connecter les bons éléments aux pins d’intérêts de l’arduino. En effet, certain composant nécessitait d’être connecté à des pins PWM de l’arduino pour cadencer l’information via une clock. C’est le cas pour le module HC-05 en écriture au moins et l’encodeur digital. Voici donc notre proposition :
 
 ![schematique](/Photos/schematique.PNG)
 
@@ -142,7 +141,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 ![3D](/Photos/3D.PNG)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Les fichiers KiCad sont disponibles dans le dossier [KiCad arduino uno](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/da43fc9fce593c2ac2d83845271d5a9cc06c3605/Kicad%20arduino%20uno/Capteur_graphite).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Les fichiers KiCad sont disponibles dans le dossier [KiCad arduino uno](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/Capteur_graphite).
 
 ***Réalisation de la Shield***
 
@@ -155,7 +154,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 Étape 4 : immersion de la plaquette dans du perchlorure de fer pour graver les pistes ;
 Étape 5 : nettoyage de la plaquette avec de l'acétone pour retirer la résine restante.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toutes ces étapes de fabrication ont été réalisé par Cathy Crouzet. Nous avons ensuite pu réaliser le perçage de notre plaquette et y souder nos divers composants selon le schéma du PCB obtenu sur KiCad.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toutes ces étapes de fabrication ont été réalisées par Cathy Crouzet. Nous avons ensuite pu réaliser le perçage de notre plaquette et y souder nos divers composants selon le schéma du PCB obtenu sur KiCad.
 
 <p align="center">
   <img src="/Photos/Soudure.PNG" alt="Soudure">
@@ -171,13 +170,13 @@ Voici le résultat après soudure de notre PCB :
 
 ***Arduino***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une fois le Shield PCB réalisé, nous avons d’abord réalisé le code Arduino qui nous permettrait de coordonner tout nos composants et procéder nos mesures.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une fois le Shield PCB réalisé, nous avons d’abord réalisé le code Arduino qui nous permettrait de coordonner tous nos composants et procéder nos mesures.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons décidé de donner une importance particulière à l’écran OLED, notre but étant de configurer un petit menu pour y sélectionner valeur de résistance du potentiomètre et pour y voir les valeurs mesurées. Le fonctionnement de l’affiche OLED se fait en parallèle de la mesure, à chaque tour de boucle, que l’on soit ou non sur la partie du menu nous permettant de voir la mesure, un signal est récupéré. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons décidé de donner une importance particulière à l’écran OLED, notre but étant de configurer un petit menu pour y sélectionner les valeurs de résistance du potentiomètre et pour y voir les valeurs de résistance mesurées. Le fonctionnement de l’affichage OLED se fait en parallèle de la mesure, à chaque tour de boucle, que l’on soit ou non sur la partie du menu nous permettant de voir la mesure, un signal est récupéré. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Le deuxième élément qui nous a demandé beaucoup d’attention était le module Bluetooth. Nous avons opté pour un fonctionnement simple lié au menu d’affichage de l’écran OLED. Si la mesure se fait de manière constante, l’envoie de données lui ne l’est pas. Si nous nous trouvons sur la page du menu de configuration de la valeur du potentiomètre, l’information envoyée est un entier compris entre 1 et 8 codé sur 8 bits. Si nous nous trouvons sur la page du menu affichant les valeurs de résistance, l’information envoyée est un entier compris entre 0 et 255 codé sur 8 bits également.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ici n’est qu’un bref résumé du fonctionnement de notre code. Notre [code](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/da43fc9fce593c2ac2d83845271d5a9cc06c3605/Kicad%20arduino%20uno/partie_software/code_arduino) complet et commenté se trouve sur le GitHub.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ici n’est qu’un bref résumé du fonctionnement de notre code. Notre [code](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/partie_software/code_arduino/code_arduino.ino) complet et commenté se trouve sur le GitHub.
 
 ***Application Android***
 
@@ -187,13 +186,13 @@ Voici le résultat après soudure de notre PCB :
   <img src="/Photos/App-inventor.PNG" alt="App-inventor">
 </p>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyé pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyait pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
 
-Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/e780e9e67ddb4ad359baa03b2484e88e1e51dd00/Kicad%20arduino%20uno/Appli_Apk) est disponible sur le GitHub.
+Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/Appli_Apk/Capteur.apk) est disponible sur le GitHub.
 
 ## Test et résultats
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afin de réaliser nos tests et mesures avec la plus grande précision et confort possible, nous voulions nous assurer des contraintes que nous appliquions sur nos jauges. Nos jauges car nous avons confectionné plusieurs jauges de contrainte avec des types de crayon différent dans l’optique de pouvoir les comparer les unes aux autres et déterminer laquelle serait la plus performante ou la plus conductrice. Celles-ci sont toutes de dimensions fixes avec une épaisseur de papier fixe.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afin de réaliser nos tests et mesures avec la plus grande précision et confort possible, nous voulions nous assurer des contraintes que nous appliquions sur nos jauges. Nos jauges car nous avons confectionné plusieurs jauges de contrainte avec des types de crayon différents dans l’optique de pouvoir les comparer les unes aux autres et déterminer laquelle serait la plus performante ou la plus conductrice. Celles-ci sont toutes de dimensions fixes avec une épaisseur de papier fixe.
 
 <p align="center">
   <img src="/Photos/dimension-capteur.PNG" alt="dimension-capteur">
@@ -213,17 +212,29 @@ Il dispose de 6 encoches dans lesquelles nous pouvons glisser nos jauges en papi
 
 ![dimension](/Photos/dimension.JPG)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De fait, avec des conditions de mesure similaire, nous avons pu comparer les différents capteurs les uns aux autres et produire le tableau de [résultats](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/caf6645d483fac3703becc1256748d9d368a6c8f/R%C3%A9sultats) disponible sur notre GitHub.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De fait, avec des conditions de mesure similaire, nous avons pu comparer les différents capteurs les uns aux autres et produire le tableau de [résultats]( https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/R%C3%A9sultats/Mesures.xlsx) disponible sur notre GitHub. Cependant, comme développé en conclusion nous avons rencontré quelques soucis durant nos mesures amenant à des quelques aberrations. Par exemple ci-dessous on peut voir sur le graphique avec la valeur du potentiomètre fixé à 12500 Ω que le ∆R/R est plus marqué pour le 2B et le B que pour le 3B. Or, le 3B est censé être plus gras que le B et le 2B, il devrait donc avec des ∆R/R plus élevé pour une même déformation.
+
+<p align="center">
+  <img src="/Photos/deltaR_12500.PNG" alt="deltaR_12500">
+</p>
+
+Aussi, ci-dessous nous pouvons voir les valeurs de résistances en fonction de la déformation pour différents crayons, potentiomètre fixé à 12500 Ω. Sur ce graphique, on constate que la résistance du crayon HB ne correspond pas à la théorie, moins gras, sa résistance devrait être grandement supérieur aux crayons de type B et plus.
+
+<p align="center">
+  <img src="/Photos/R_12500_flexion.PNG" alt="R_12500_flexion">
+</p>
+
+On peut expliquer cette constatation par le fait que chaque jauge a été dessiné en appuyant la mine des crayons de manière plus ou moins forte sur le papier, déposant des quantités de graphènes différentes. Ainsi, ici, on peut supposer que le capteur HB a été dessiné avec violence, ce qui a fortement diminué sa résistance dû à la forte concentration de graphène malgré le crayon peu gras qu’est le HB.
 
 ## Datasheet
 
-La datasheet de notre capteur est disponible `[ici]()`.
+La datasheet de notre capteur est disponible [ici](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/6f88044779a622bc12bf6ed24a0097ba39bc729e/Datasheet.pdf).
 
 ## Conclusions et analyse critique du projet
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ce projet a été très enrichissant d’un point de vue pédagogique. Ce fut l’occasion pour nous développer plusieurs compétences de savoir-faire. Des compétences de savoir-faire car via ce projet nous avons pu intervenir et manipuler à tous les niveaux de la chaîne d’acquisition, faisant le lien entre des phénomènes physique et le monde du numérique beaucoup plus pratique pour l’analyse. A ça, nous avons pu développer des compétences en électroniques très importante, notamment au niveau de la réduction de bruit pour ne garder que le signal d’intérêt, parfois très faible, mais garder un temps de réponse raisonnable. Enfin, à travers ce projet nous avons obtenu une première approche de confection de datasheet, très importante bien que peu attirante pour faciliter la lecture de nos travaux.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ce projet a été très enrichissant d’un point de vue pédagogique. Ce fut l’occasion pour nous développer plusieurs compétences de savoir-faire. Des compétences de savoir-faire car via ce projet nous avons pu intervenir et manipuler à tous les niveaux de la chaîne d’acquisition, faisant le lien entre des phénomènes physiques et le monde du numérique beaucoup plus pratique pour l’analyse. A ça, nous avons pu développer des compétences en électroniques très importantes, notamment au niveau de la réduction de bruit pour ne garder que le signal d’intérêt, parfois très faible, mais garder un temps de réponse raisonnable. Enfin, à travers ce projet nous avons obtenu une première approche de confection de datasheet, très importante bien que peu attirante, pour faciliter la lecture de nos travaux.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En ce qui concerne le capteur graphite fabriqué, il est fonctionnel et les tests nous permettent de dégager des tendances cohérentes avec la physique. Cependant, nos capteurs présentaient des valeurs relativement variables. D’un jour à l’autre nous n’obtenions pas tout à fait les mêmes résultats pour une même jauge, bien que nous ayons fixé les contraintes appliquées via notre outil de mesure. Aussi, on observait des oscillations constantes dans nos mesures mettant en évidence, malgré nos filtres, un bruit externe venant perturber nos mesures. A ça nous aurions pu par exemple améliorer notre dispositif avec un blindage au niveau des câbles, mais aussi au niveau du Shield. De fait, il est nécessaire de prendre du recul sur les résultats que nous proposons.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;En ce qui concerne les capteurs graphites fabriqués, ils sont fonctionnels et les tests nous permettent de dégager des tendances cohérentes avec la physique. Cependant, nos capteurs présentaient des valeurs relativement variables. D’un jour à l’autre nous n’obtenions pas tout à fait les mêmes résultats pour une même jauge, bien que nous ayons fixé les contraintes appliquées via notre outil de mesure. De plus, notre outil du fait des encoches, gratte la fine couche de graphène et en enlève, altérant les propriétés des capteurs. Aussi, on observait des oscillations constantes dans nos mesures mettant en évidence, malgré nos filtres, un bruit externe venant les perturber. A ça nous aurions pu, par exemple, pour améliorer notre dispositif blinder les câbles, mais aussi notre Shield. De fait, il est nécessaire de prendre du recul sur les résultats que nous proposons.
 
 ## Contacts
 
@@ -231,3 +242,5 @@ Pour toute information complémentaire, vous pouvez nous contacter à ces adress
 
 - Sombret Yanis : <sombret@insa-toulouse.fr>
 - Rolland Tristan : <rollan@insa-toulouse.fr>
+
+
