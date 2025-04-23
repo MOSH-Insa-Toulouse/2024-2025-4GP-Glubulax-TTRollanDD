@@ -177,7 +177,7 @@ Voici le résultat final de notre PCB :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyé pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
 
-Idem, l’[application](/Kicad-arduino-uno/Appli_Apk) est disponible sur le GitHub.
+Idem, l’[application](/Kicad arduino uno/Appli_Apk) est disponible sur le GitHub.
 
 ## Test et résultats
 
