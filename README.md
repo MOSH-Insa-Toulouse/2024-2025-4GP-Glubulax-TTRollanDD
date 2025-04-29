@@ -77,7 +77,7 @@ Afin de mener notre projet à son aboutissement, nous avons eu besoin de :
 
 ***Description du montage amplificateur transimpédance***
 
-Nous avons testé ce [montage](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/LTspice/Ampli_transimp%C3%A9dance/Ampli_transimp%C3%A9dance.asc) sur le logiciel LTspice :
+Nous avons testé ce [montage](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/LTspice/Ampli_transimp%C3%A9dance/Ampli_transimp%C3%A9dance.asc) sur le logiciel LTspice :
 
 ![Montage-ampli](/Photos/Montage-ampli.PNG)
 
@@ -141,7 +141,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 ![3D](/Photos/3D.PNG)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Les fichiers KiCad sont disponibles dans le dossier [KiCad arduino uno](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/Capteur_graphite).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Les fichiers KiCad sont disponibles dans le dossier [KiCad arduino uno](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/tree/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/Kicad%20arduino%20uno/Capteur_graphite).
 
 ***Réalisation de la Shield***
 
@@ -176,7 +176,7 @@ Voici le résultat après soudure de notre PCB :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Le deuxième élément qui nous a demandé beaucoup d’attention était le module Bluetooth. Nous avons opté pour un fonctionnement simple lié au menu d’affichage de l’écran OLED. Si la mesure se fait de manière constante, l’envoie de données lui ne l’est pas. Si nous nous trouvons sur la page du menu de configuration de la valeur du potentiomètre, l’information envoyée est un entier compris entre 1 et 8 codé sur 8 bits. Si nous nous trouvons sur la page du menu affichant les valeurs de résistance, l’information envoyée est un entier compris entre 0 et 255 codé sur 8 bits également.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ici n’est qu’un bref résumé du fonctionnement de notre code. Notre [code](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/partie_software/code_arduino/code_arduino.ino) complet et commenté se trouve sur le GitHub.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ici n’est qu’un bref résumé du fonctionnement de notre code. Notre [code](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/Kicad%20arduino%20uno/partie_software/code_arduino/code_arduino.ino) complet et commenté se trouve sur le GitHub.
 
 ***Application Android***
 
@@ -188,7 +188,7 @@ Voici le résultat après soudure de notre PCB :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nous avons fait face à de nombreux problème lors de sa réalisation, le plus gros étant le cadencement des données. En effet, notre HC-05 envoyait pléthore de données et saturait le buffer de réception. Ainsi nous pouvions arrêter les mesures à un temps T et n’arrêter d’en afficher les variations sur l’application qu’une à deux minutes plus tard. Nous avons résolu ce problème en réglant la clock de l’application pour la caler sur le bauderate de l’Arduino. Une fois fait, nous avons tenté de faire un graphique en temps réel pour visualiser les variations mais celui-ci n’a pas abouti, les variations étant trop rapides et trop grandes. 
 
-Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/Kicad%20arduino%20uno/Appli_Apk/Capteur.apk) est disponible sur le GitHub.
+Idem, l’[application](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/Kicad%20arduino%20uno/Appli_Apk/Capteur.apk) est disponible sur le GitHub.
 
 ## Test et résultats
 
@@ -212,7 +212,7 @@ Il dispose de 6 encoches dans lesquelles nous pouvons glisser nos jauges en papi
 
 ![dimension](/Photos/dimension.JPG)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De fait, avec des conditions de mesure similaire, nous avons pu comparer les différents capteurs les uns aux autres et produire le tableau de [résultats]( https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/dec7c74e0df1199f6bea177e3e8f014f9656b2aa/R%C3%A9sultats/Mesures.xlsx) disponible sur notre GitHub. Cependant, comme développé en conclusion nous avons rencontré quelques soucis durant nos mesures amenant à des quelques aberrations. Par exemple ci-dessous on peut voir sur le graphique avec la valeur du potentiomètre fixé à 12500 Ω que le ∆R/R est plus marqué pour le 2B et le B que pour le 3B. Or, le 3B est censé être plus gras que le B et le 2B, il devrait donc avec des ∆R/R plus élevé pour une même déformation.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De fait, avec des conditions de mesure similaire, nous avons pu comparer les différents capteurs les uns aux autres et produire le tableau de [résultats](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/R%C3%A9sultats/Mesures.xlsx) disponible sur notre GitHub. Cependant, comme développé en conclusion nous avons rencontré quelques soucis durant nos mesures amenant à des quelques aberrations. Par exemple ci-dessous on peut voir sur le graphique avec la valeur du potentiomètre fixé à 12500 Ω que le ∆R/R est plus marqué pour le 2B et le B que pour le 3B. Or, le 3B est censé être plus gras que le B et le 2B, il devrait donc avec des ∆R/R plus élevé pour une même déformation.
 
 <p align="center">
   <img src="/Photos/deltaR_12500.PNG" alt="deltaR_12500">
@@ -228,7 +228,7 @@ On peut expliquer cette constatation par le fait que chaque jauge a été dessin
 
 ## Datasheet
 
-La datasheet de notre capteur est disponible [ici](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/6f88044779a622bc12bf6ed24a0097ba39bc729e/Datasheet.pdf).
+La datasheet de notre capteur est disponible [ici](https://github.com/MOSH-Insa-Toulouse/2024-2025-4GP-Glubulax-TTRollanDD/blob/5d5dbacb22e8d05c2202cd88c66fef8cc0433a9e/Datasheet.pdf).
 
 ## Conclusions et analyse critique du projet
 
