@@ -202,7 +202,7 @@ Or, la déformation ε dans notre cas se calcule comme :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ε=e/(2*R0)
 
-Où e est l’épaisseur de nos jauges, et R0 le rayon de courbure. Ainsi, pour pouvoir appliquer la même contrainte et donc observer la même déformation sur toutes nos jauges de contrainte, nous avons modélisé et fabriqué le petit outil de test ci-dessus.
+Où e est l’épaisseur de nos jauges, et R0 le rayon de courbure. Ainsi, pour pouvoir appliquer la même contrainte et donc observer la même déformation sur toutes nos jauges de contrainte, nous avons co-modélisé et fabriqué avec le binôme Arture et Maëlys, le petit outil de test ci-dessous.
 
 <p align="center">
   <img src="/Photos/bancdetest.JPG" alt="bancdetest">
