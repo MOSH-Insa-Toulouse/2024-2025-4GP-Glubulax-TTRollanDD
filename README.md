@@ -95,7 +95,7 @@ Rcapteur=(1+R3/R2)R1*Vcc/Vadc-R1-R5
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Place maintenant à la réduction du bruit. Pour obtenir un signal le plus pur et ce, de manière efficace, nous avons dimensionné les 3 filtres de ce montage amplificateur transimpédance via nos simulations. Chaque filtre ayant un rôle bien précis : 
 
-- à l'entrée, un filtre 1 passe-bas passif (R5,C1) avec une fréquence de coupure de 16 Hz permettant de filtrer les bruits sur le signal en entrée fournis par nos capteurs. Donc tout type de perturbations en courant qu’il pourrait avoir lieu avant amplification, qui serait amplifié dans le cas contraire avec notre signal, le noyant.
+- à l'entrée, un filtre 1 passe-bas passif (R5,R1,C1) avec une fréquence de coupure de 16 Hz permettant de filtrer les bruits sur le signal en entrée fournis par nos capteurs. Donc tout type de perturbations en courant qu’il pourrait avoir lieu avant amplification, qui serait amplifié dans le cas contraire avec notre signal, le noyant.
 
 - un deuxième filtre 2 passe-bas avec une fréquence de coupure de 1.6 Hz (R3,C4) couplé à l'AOP permettant de filtrer la composante du bruit à 50 Hz provenant du réseau électrique. Ici, la simulation nous a permis de fixer la valeur de C4. Une valeur trop élevée permet de diminuer grandement le bruit à 50 Hz mais diminue fortement le temps de réponse de notre circuit amplificateur. Ainsi, après simulation, fixer C4 à 1μF représente le meilleur compromis. 
 
@@ -202,7 +202,7 @@ Or, la déformation ε dans notre cas se calcule comme :
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ε=e/(2*R0)
 
-Où e est l’épaisseur de nos jauges, et R0 le rayon de courbure. Ainsi, pour pouvoir appliquer la même contrainte et donc observer la même déformation sur toutes nos jauges de contrainte, nous avons co-modélisé et fabriqué avec le binôme Arture et Maëlys, le petit outil de test ci-dessous.
+Où e est l’épaisseur de nos jauges, et R0 le rayon de courbure. Ainsi, pour pouvoir appliquer la même contrainte et donc observer la même déformation sur toutes nos jauges de contrainte, nous avons modélisé et fabriqué le petit outil de test ci-dessus.
 
 <p align="center">
   <img src="/Photos/bancdetest.JPG" alt="bancdetest">
